@@ -44,7 +44,7 @@ jobs:
           chmod 600 private_key.pem
           scp -o StrictHostKeyChecking=no -i private_key.pem -r dist/* $USER@$HOST:/var/www/html/
 
-      - name: Serve React app
+      - name: Install Vite on EC2
         env:
           PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
           HOST: ${{ secrets.EC2_HOST }}
@@ -52,4 +52,14 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key.pem
           chmod 600 private_key.pem
-          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST "npx serve -s /var/www/html &"
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST "npm install -g vite"
+
+      - name: Preview React app with Vite
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ${{ secrets.EC2_USER }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST "cd /var/www/html && vite preview --host"

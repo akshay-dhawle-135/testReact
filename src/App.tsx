@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css'; // Ensure you have styles for the components
 
 function App() {

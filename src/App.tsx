@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="landing-page">
       <header className="header">
-        <h1>Welcome to Our Amazing App</h1>
+        <h1>Welcome to Our Amazing App V2</h1>
         <p>Your one-stop solution for all your needs!</p>
         <button className="cta-button">Get Started</button>
       </header>
